@@ -1,0 +1,49 @@
+.cento{
+    width: 100%;
+    height: 100%;
+    background-color: bisque;
+}
+img{
+    width: 100%;
+}
+.search{
+    border: solid 1px rgb(210, 210, 210) ;
+    height: 2rem;
+    width: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.mess{
+    height: calc(100vh - 2rem);
+    width: 100rem;
+
+    z-index: 5;
+    background-color: white;
+
+}
+#contatti{
+    height: 100%;
+    width: calc(100% /3);
+    background-color: white;
+}
+#contattiMessaggi{
+    height: 100%;
+    width: 100%;
+    border-style: dashed;
+}
+.profili{
+    height: 4rem;
+    width: 100%;
+    color: black;
+    background-color: aliceblue;
+}
+#profili:hover{
+    background-color: grey;
+}
+.circle{
+    margin-left: 1rem;
+    margin-right: 1rem;
+    width: 3rem;
+    height: 3rem;
+}
