@@ -22,11 +22,21 @@
       <!-- contatti -->
       <div id="contatti">
         <!-- profilo utente -->
-        <div class="profili d-flex align-items-center border-end">
-          <div class="rounded-circle circle bg-black">
+        <div
+          class="profili d-flex align-items-center border-end justify-content-between"
+        >
+          <div class="rounded-circle circle bg-black d-flex align-items-center">
             <img src="/img/avatar_io.jpg" alt="" class="rounded-circle" />
+            <span class="ms-1">Sofia</span>
           </div>
-          <span>Sofia</span>
+
+          <div class="d-flex text-end">
+            <i class="fa-solid fa-circle-notch m-2 fs-4 text-secondary"></i>
+            <i class="fa-solid fa-message m-2 fs-4 text-secondary"></i>
+            <i
+              class="fa-solid fa-ellipsis-vertical m-2 fs-4 text-secondary"
+            ></i>
+          </div>
         </div>
         <!-- blocco info -->
         <div class="profili d-flex align-items-center bg-info">
@@ -49,14 +59,16 @@
             class="w-100 m-1 ms-0 search rounded-end"
             type="text"
             placeholder="Cerca o inizia una nuova conversazione"
+            v-model="search"
           />
         </div>
         <!-- lista contatti -->
         <div class="overflow-scroll" style="height: calc(100% - 11rem)">
           <div
             class="profili d-flex align-items-center justify-content-between"
-            v-for="elemento, i in contacts"
+            v-for="elemento, i in filterArrey"
             @click="stampa(elemento)"
+            id="visibile"
           >
             <div class="rounded-circle circle bg-black" id="profili">
               <img v-bind:src="elemento.avatar" alt="" class="rounded-circle" />
@@ -104,15 +116,31 @@
         <!-- contenitore messaggi -->
         <div class="container_mes d-flex flex-column" id="insert">
           <div class="mes rounded" v-for="messaggio,i in mes.messages">
-            <span
-              class="sfondoGreen rounded d-flex"
+            <div
+              class="sfondoGreen rounded d-flex justify-content-between"
               v-if="messaggio.status=='received'"
-              >{{messaggio.message}}</span
             >
+              {{messaggio.message}}
+              <div class="data">
+                <i class="fa-solid fa-angle-down"></i
+                >{{messaggio.date.slice(10,16)}}
+              </div>
+            </div>
 
-            <span class="sfondoWhite rounded" v-if="messaggio.status=='sent'"
-              >{{messaggio.message}}</span
+            <div
+              class="sfondoWhite rounded d-flex justify-content-between"
+              v-if="messaggio.status=='sent'"
             >
+              {{messaggio.message}}
+              <div class="data">
+                <i
+                  class="fa-solid fa-angle-down dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                ></i>
+
+                {{messaggio.date.slice(10,16)}}
+              </div>
+            </div>
             <span v-if="messaggio.message!=undefined"></span>
           </div>
         </div>

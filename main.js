@@ -4,13 +4,15 @@ createApp({
     data(){
         return{
             mes:[],
+            m: 'p',
+            lunghezza:0,
+            search:"",
         contacts: [
             {
                 name: 'Michele',
                 avatar: '/img/avatar_1.jpg',
                 visible: true,
-                m: 'p',
-                lunghezza:0,
+                
                 messages: [
                     {
                         date: '10/01/2020 15:30:55',
@@ -330,6 +332,7 @@ createApp({
                 ],
             }
         ]}
+        
     },methods:{
 
     
@@ -348,16 +351,31 @@ createApp({
          this.mes.messages[this.lunghezza]=p;
         console.log(this.lunghezza)
         console.log(this.mes.messages[this.lunghezza])
+        
         let myTime=setTimeout(function(){
              document.getElementById("insert").innerHTML+=
              `<div class="mes rounded">
              <span class="sfondoGreen rounded d-flex">OK!</span>
              <div/>`
              console.log("cisono");
+             
          },1000)
         
         },
+        tempo(elemento){
+            console.log(elemento);
+            
+            
+        },
+
+
         
       
+    },computed:{
+        filterArrey:function(){
+            return this.contacts.filter((elemento)=>{
+                return elemento.name.match(this.search)
+            })
+        }
     }
 }).mount('#app')
