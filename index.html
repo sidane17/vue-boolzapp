@@ -22,7 +22,7 @@
       <!-- contatti -->
       <div id="contatti">
         <!-- profilo utente -->
-        <div class="profili d-flex align-items-center">
+        <div class="profili d-flex align-items-center border-end">
           <div class="rounded-circle circle bg-black">
             <img src="/img/avatar_io.jpg" alt="" class="rounded-circle" />
           </div>
@@ -41,32 +41,106 @@
           </div>
         </div>
         <!-- barra di ricerca contatti -->
-        <div class="d-flex" style="height: fit-content">
-          <button class="m-1 me-0 search">
+        <div class="d-flex" style="height: 3rem">
+          <button class="m-1 me-0 search rounded-start">
             <i class="fa-solid fa-magnifying-glass text-secondary"></i>
           </button>
           <input
-            class="w-100 m-1 ms-0 search"
+            class="w-100 m-1 ms-0 search rounded-end"
             type="text"
             placeholder="Cerca o inizia una nuova conversazione"
           />
         </div>
         <!-- lista contatti -->
-        <div
-          class="profili d-flex align-items-center"
-          v-for="elemento, i in contacts"
-        >
-          <div class="rounded-circle circle bg-black">
-            <img v-bind:src="elemento.avatar" alt="" class="rounded-circle" />
+        <div class="overflow-scroll" style="height: calc(100% - 11rem)">
+          <div
+            class="profili d-flex align-items-center justify-content-between"
+            v-for="elemento, i in contacts"
+            @click="stampa(elemento)"
+          >
+            <div class="rounded-circle circle bg-black" id="profili">
+              <img v-bind:src="elemento.avatar" alt="" class="rounded-circle" />
+            </div>
+            <div class="d-flex flex-column">
+              <span class="fs-5">{{elemento.name}}</span>
+              <span class="text-secondary fs-6">Ultimo messaggio inviato</span>
+            </div>
+
+            <div class="me-2"><span>12:00</span></div>
           </div>
-          <span>{{elemento.name}}</span>
         </div>
         <!-- <div class="profili" v-for="elemento, i in contacts">
           {{elemento.name}}
         </div> -->
       </div>
       <!-- messaggi -->
-      <div id="contattiMessaggi"></div>
+      <div
+        id="contattiMessaggi"
+        class="d-flex flex-column align-items-center justify-content-between"
+      >
+        <div class="profili d-flex align-items-center justify-content-between">
+          <div class="profili d-flex align-items-center">
+            <div class="rounded-circle circle" id="profili">
+              <img v-bind:src="this.mes.avatar" alt="" class="rounded-circle" />
+            </div>
+            <div class="d-flex flex-column">
+              <span>{{mes.name}}</span>
+              <span class="text-secondary fs-6"
+                >Ultimo accesso oggi alle 12:00</span
+              >
+            </div>
+            <!-- icone  -->
+            <div class="d-flex justify-content-end w-75">
+              <i
+                class="fa-solid fa-magnifying-glass m-3 fs-4 text-secondary"
+              ></i>
+              <i class="fa-solid fa-paperclip m-3 fs-4 text-secondary"></i>
+              <i
+                class="fa-solid fa-ellipsis-vertical m-3 fs-4 text-secondary"
+              ></i>
+            </div>
+          </div>
+        </div>
+        <!-- contenitore messaggi -->
+        <div class="container_mes d-flex flex-column" id="insert">
+          <div class="mes rounded" v-for="messaggio,i in mes.messages">
+            <span
+              class="sfondoGreen rounded d-flex"
+              v-if="messaggio.status=='received'"
+              >{{messaggio.message}}</span
+            >
+
+            <span class="sfondoWhite rounded" v-if="messaggio.status=='sent'"
+              >{{messaggio.message}}</span
+            >
+            <span v-if="messaggio.message!=undefined"></span>
+          </div>
+        </div>
+
+        <div
+          class="w-100 d-flex align-items-center justify-content-between"
+          style="height: 3rem; background-color: rgb(243, 238, 234)"
+        >
+          <div
+            class="d-flex justify-content-center align-items-center w-25 fs-4"
+          >
+            <i class="fa-regular fa-face-smile"></i>
+          </div>
+          <input
+            class="m-1 ms-0 search w-100 rounded"
+            type="text"
+            placeholder="Scrivi un messaggio"
+            style="height: 90%"
+            v-model="m"
+            @keyup.enter="send()"
+          />
+          <div
+            class="w-25 d-flex justify-content-center align-items-center fs-4"
+          >
+            <i class="fa-solid fa-microphone"></i>
+          </div>
+        </div>
+      </div>
     </main>
     <script src="main.js"></script>
   </body>
